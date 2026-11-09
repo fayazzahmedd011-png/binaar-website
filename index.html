@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Binaar Vertical Living</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Binaar real estate advisory: Faisal Jewel and Faisal Heights apartments, penthouses and commercial units.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&family=Hanken+Grotesk:wght@400;500;600&display=swap">
+<style>
+img{max-width:100%}
+[hidden]{display:none!important}
+
+/* Layout: one rounded "sheet" on a pale ground (like a framed site), black pill nav, a hero where the
+   3D Faisal Jewel tower stands in front of a giant glass word, then search, unit grid, data cards,
+   advisor, a CTA that opens onto a 3D skyline of both projects, and a footer signed by the wordmark.
+   Strict black and white: one ink, one paper, greys only for hierarchy. */
+:root{
+  --ground:#EDEDEF; --paper:#FFFFFF; --soft:#F5F5F6; --ink:#0D0D0D; --ink-2:#2A2A2C; --muted:#6E6E73; --line:#E4E4E7; --glass:rgba(255,255,255,.18);
+  --display:"Work Sans","Helvetica Neue",Arial,sans-serif; --body:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
+  --r-sheet:28px; --r:20px; color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--ground); color:var(--ink); font-family:var(--body); font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased;
+  padding-left:max(16px,env(safe-area-inset-left,0px)); padding-right:max(16px,env(safe-area-inset-right,0px)); padding-block:20px}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display); font-weight:500; margin:0; text-wrap:balance; letter-spacing:-.01em}
+p{margin:0}
+:focus-visible{outline:2px solid var(--ink); outline-offset:3px; border-radius:8px}
+.sheet{max-width:1240px; margin:0 auto; background:var(--paper); border-radius:var(--r-sheet); overflow:hidden; box-shadow:0 30px 80px -40px rgba(0,0,0,.25)}
+.in{padding-inline:clamp(16px,5vw,64px)}
+.sec{padding-block:clamp(48px,7vw,88px)}
+.row-head{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; margin-bottom:32px}
+.row-head h2{font-size:clamp(30px,3.6vw,44px); line-height:1.12}
+.row-head p{max-width:34ch; color:var(--muted); font-size:14px}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; border-radius:999px; padding:11px 20px; font:600 14px var(--body); text-decoration:none; border:1px solid transparent; cursor:pointer; white-space:nowrap}
+.btn-ink{background:var(--ink); color:var(--paper)}
+.btn-line{background:var(--paper); color:var(--ink); border-color:var(--line)}
+
+/* nav */
+.nav{display:flex; align-items:center; justify-content:space-between; gap:16px; padding-block:22px}
+.logo{color:var(--ink); display:flex}
+.pillnav{display:flex; gap:2px; background:var(--ink); border-radius:999px; padding:4px}
+.pillnav a{color:var(--paper); text-decoration:none; font-size:14px; padding:8px 16px; border-radius:999px; opacity:.85}
+.pillnav a.on{background:var(--paper); color:var(--ink); opacity:1}
+.pillnav a:not(.on):hover{opacity:1; background:rgba(255,255,255,.12)}
+.nav-r{display:flex; align-items:center; gap:14px; font-size:14px}
+.nav-r .ar{font-size:18px}
+@media (max-width:900px){.pillnav{display:none}}
+
+/* hero */
+.hero{position:relative; margin-inline:clamp(10px,1.6vw,20px); border-radius:var(--r); overflow:hidden;
+  background:linear-gradient(180deg,#d9d9dc 0%,#f2f2f3 55%,#bfbfc3 100%); min-height:clamp(520px,58vw,700px)}
+.hero .giant{position:absolute; left:0; right:0; top:clamp(70px,9vw,120px); text-align:center; font:800 clamp(120px,24vw,330px)/.8 var(--display);
+  letter-spacing:-.04em; color:rgba(255,255,255,.55); -webkit-text-stroke:1px rgba(13,13,13,.10); text-shadow:0 2px 30px rgba(0,0,0,.08); user-select:none; pointer-events:none}
+.hero .build{position:absolute; left:clamp(18px,9vw,140px); top:clamp(40px,6vw,80px); font:500 clamp(22px,2.6vw,34px)/1.1 var(--display); z-index:3}
+.hero .intro{position:absolute; right:clamp(18px,4vw,56px); top:clamp(40px,6vw,80px); max-width:30ch; font-size:14px; color:var(--ink-2); z-index:3}
+#tower{position:absolute; inset:0; width:100%; height:100%; z-index:2; display:block; cursor:grab; touch-action:pan-y}
+#tower:active{cursor:grabbing}
+.glass{background:rgba(20,20,22,.55); color:#fff; backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,.18); border-radius:999px}
+.hero .stats{position:absolute; left:clamp(14px,4vw,56px); bottom:clamp(14px,3vw,36px); display:flex; gap:clamp(14px,2.4vw,30px); padding:12px 22px; z-index:3}
+.stats div b{display:block; font:600 clamp(18px,1.8vw,24px)/1 var(--display)}
+.stats div span{font-size:11px; opacity:.75}
+.hero .play{position:absolute; right:clamp(14px,4vw,56px); bottom:clamp(14px,3vw,36px); display:flex; align-items:center; gap:16px; padding:10px 24px 10px 10px; border-radius:22px; z-index:3; text-decoration:none}
+.play i{width:52px; height:52px; border-radius:16px; background:rgba(255,255,255,.14); display:grid; place-items:center; font-style:normal}
+.play i svg{width:22px; height:22px}
+.play span{font:500 clamp(16px,1.6vw,21px)/1.15 var(--display)}
+.hint{position:absolute; right:clamp(14px,4vw,56px); top:clamp(140px,14vw,170px); font-size:11px; color:var(--muted); z-index:3}
+@media (max-width:700px){
+  .hero{min-height:620px}
+  .hero .intro{left:18px; right:18px; top:auto; bottom:170px; max-width:none; background:rgba(255,255,255,.75); padding:10px 12px; border-radius:12px}
+  .hero .play{left:14px; right:auto; bottom:84px}
+  .hint{top:96px; right:18px}
+}
+
+/* search */
+.intro2{display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; align-items:flex-start}
+.intro2 h2{font-size:clamp(28px,3.4vw,42px); line-height:1.12; max-width:18ch}
+.intro2 p{max-width:34ch; color:var(--muted); font-size:14px}
+.finder{margin-top:36px; background:var(--paper); border:1px solid var(--line); border-radius:var(--r); padding:clamp(18px,3vw,30px); box-shadow:0 18px 50px -30px rgba(0,0,0,.25)}
+.finder h3{font-size:22px; margin-bottom:18px}
+.fields{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px}
+@media (max-width:860px){.fields{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:460px){.fields{grid-template-columns:1fr}}
+label{display:grid; gap:6px; font-size:13px; font-weight:600}
+select,input,textarea{font:inherit; font-size:14px; color:var(--ink); background:var(--soft); border:1px solid var(--line); border-radius:10px; padding:11px 12px; width:100%}
+.frow{display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap; margin-top:18px}
+.chips{display:flex; flex-wrap:wrap; gap:6px; align-items:center; font-size:13px}
+.chips b{margin-right:4px}
+.chip{border:1px solid var(--line); background:var(--paper); border-radius:999px; padding:5px 12px; font:500 13px var(--body); cursor:pointer; color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+
+/* units */
+.grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px}
+@media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+.unit{background:var(--paper); border:1px solid var(--line); border-radius:var(--r); padding:10px; display:flex; flex-direction:column; box-shadow:0 14px 40px -32px rgba(0,0,0,.35)}
+.pic{position:relative; aspect-ratio:4/3; max-width:100%; border-radius:14px; overflow:hidden; background:var(--soft)}
+.pic img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:grayscale(1) contrast(1.06); z-index:1}
+.pic svg{position:absolute; inset:0; width:100%; height:100%}
+.pic .proj{position:absolute; left:10px; top:10px; z-index:2; font-size:11px; font-weight:600; background:rgba(255,255,255,.9); border-radius:999px; padding:4px 10px}
+.u-body{padding:14px 6px 6px; display:grid; gap:10px}
+.u-top{display:flex; justify-content:space-between; align-items:center; gap:12px}
+.u-top h3{font-size:16px; font-weight:600; font-family:var(--body)}
+.u-top small{display:block; color:var(--muted); font-size:13px}
+.u-price{font:600 17px var(--display); text-align:right; border-left:1px solid var(--line); padding-left:12px; white-space:nowrap}
+.u-price small{display:block; font:400 11px var(--body); color:var(--muted)}
+.specs{display:flex; flex-wrap:wrap; gap:6px 14px; font-size:12px; color:var(--muted)}
+.specs span::before{content:""; display:inline-block; width:5px; height:5px; border-radius:50%; background:var(--ink); margin-right:6px; vertical-align:middle}
+.empty{grid-column:1/-1; text-align:center; color:var(--muted); padding:30px; border:1px dashed var(--line); border-radius:var(--r)}
+
+/* data cards */
+.cards3{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px}
+@media (max-width:860px){.cards3{grid-template-columns:1fr}}
+.dc{background:var(--soft); border-radius:var(--r); padding:22px; display:grid; gap:6px}
+.dc small{color:var(--muted); font-size:12px}
+.dc b{font:600 26px var(--display)}
+.dc .bars{display:flex; align-items:flex-end; gap:6px; height:84px; margin-top:12px}
+.dc .bars i{flex:1; background:#D4D4D8; border-radius:4px 4px 2px 2px; position:relative}
+.dc .bars i::before{content:""; position:absolute; left:0; right:0; top:0; height:4px; background:var(--ink); border-radius:4px}
+.dc .bars i.hi{background:var(--ink)}
+.dc .axis{display:flex; gap:6px; font-size:10px; color:var(--muted)}
+.dc .axis span{flex:1; text-align:center}
+
+/* advisor */
+.adv{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:22px}
+@media (max-width:900px){.adv{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.adv{grid-template-columns:1fr}}
+.person{background:var(--paper); border:1px solid var(--line); border-radius:var(--r); padding:10px; display:grid; gap:12px}
+.portrait{aspect-ratio:1; border-radius:14px; background:linear-gradient(180deg,#ececee,#d6d6da); display:grid; place-items:center; font:800 italic 64px var(--display); color:var(--ink)}
+.person div{padding:0 6px 6px}
+.person h3{font-size:16px; font-weight:600; font-family:var(--body)}
+.person p{font-size:13px; color:var(--muted)}
+.step{background:var(--soft); border-radius:var(--r); padding:20px; display:grid; gap:8px; align-content:start}
+.step b{font:600 13px var(--display); letter-spacing:.06em}
+.step h3{font-size:18px}
+.step p{font-size:14px; color:var(--muted)}
+.arrows{display:flex; gap:8px}
+.arrows a{width:38px; height:38px; border-radius:50%; background:var(--ink); color:var(--paper); display:grid; place-items:center; text-decoration:none}
+
+/* cta */
+.cta{position:relative; margin-inline:clamp(10px,1.6vw,20px); border-radius:var(--r); overflow:hidden; background:linear-gradient(180deg,#fff 0%,#f0f0f1 40%,#c9c9cd 100%)}
+.cta .box{position:relative; z-index:2; text-align:center; padding:clamp(40px,6vw,72px) 16px 0; display:grid; gap:14px; justify-items:center}
+.cta h2{font-size:clamp(28px,3.6vw,46px); line-height:1.12; max-width:20ch}
+.cta p{color:var(--muted); font-size:14px}
+#skyline{display:block; width:100%; height:clamp(300px,34vw,440px)}
+
+/* contact */
+.contact{display:grid; grid-template-columns:minmax(0,5fr) minmax(0,6fr); gap:32px; align-items:start}
+@media (max-width:860px){.contact{grid-template-columns:1fr}}
+form{background:var(--soft); border-radius:var(--r); padding:22px; display:grid; gap:14px}
+.two{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+@media (max-width:520px){.two{grid-template-columns:1fr}}
+textarea{min-height:90px; resize:vertical}
+.li{display:flex; justify-content:space-between; align-items:center; gap:12px; border-bottom:1px solid var(--line); padding-block:14px; flex-wrap:wrap}
+.li small{display:block; font-size:12px; color:var(--muted)}
+.li b{font-size:18px; font-weight:600; user-select:all}
+.copy{font:500 13px var(--body); background:var(--soft); color:var(--ink); border:1px solid var(--line); border-radius:999px; padding:6px 12px; cursor:pointer; text-decoration:none}
+.ok{font-size:14px; color:var(--ink-2)}
+
+
+/* media in black & white; colour returns on hover where a pointer exists */
+.bw{filter:grayscale(1) contrast(1.05); transition:filter .5s ease}
+@media (hover:hover){.bw:hover,.pic:hover img,.tile:hover img{filter:none}}
+.hero video,.hero .poster{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0}
+.hero::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.05) 38%,rgba(0,0,0,.35) 100%); z-index:1; pointer-events:none}
+.hero .giant{z-index:2; color:rgba(255,255,255,.62); mix-blend-mode:normal}
+.unit.wide{grid-column:span 2}
+@media (max-width:900px){.unit.wide{grid-column:span 2}}
+@media (max-width:560px){.unit.wide{grid-column:auto}}
+.unit.wide .pic{aspect-ratio:16/7}
+.pic.plan{background:#F7F7F5}
+.pic.plan img{object-fit:contain; padding:6%; background:#F7F7F5}
+/* floor plans */
+.plans{display:grid; grid-template-columns:minmax(0,7fr) minmax(0,4fr); gap:22px; align-items:stretch}
+@media (max-width:860px){.plans{grid-template-columns:1fr}}
+.plan-stage{position:relative; background:#F7F7F5; border-radius:var(--r); aspect-ratio:16/11; max-width:100%; overflow:hidden}
+.plan-stage img{position:absolute; inset:0; width:100%; height:100%; object-fit:contain; padding:4%}
+.seg{display:inline-flex; background:var(--soft); border:1px solid var(--line); border-radius:999px; padding:4px; gap:2px; flex-wrap:wrap}
+.seg button{font:500 13px var(--body); color:var(--ink); background:none; border:0; border-radius:999px; padding:7px 14px; cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink); color:var(--paper)}
+.plan-side{background:var(--soft); border-radius:var(--r); padding:22px; display:grid; gap:16px; align-content:start}
+.plan-side h3{font-size:26px}
+.kv{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.kv div{background:var(--paper); border-radius:12px; padding:12px}
+.kv small{display:block; font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.08em}
+.kv b{font-weight:600}
+/* gallery */
+.gal{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); grid-auto-rows:clamp(150px,17vw,230px); gap:12px}
+.tile{position:relative; border-radius:16px; overflow:hidden; background:var(--soft); margin:0}
+.tile img{width:100%; height:100%; object-fit:cover}
+.tile figcaption{position:absolute; left:10px; bottom:10px; font-size:12px; font-weight:600; background:rgba(255,255,255,.9); border-radius:999px; padding:4px 10px}
+.t-big{grid-column:span 2; grid-row:span 2}
+.t-tall{grid-row:span 2}
+@media (max-width:760px){.gal{grid-template-columns:repeat(2,minmax(0,1fr))} .t-big{grid-column:span 2; grid-row:span 1}}
+/* films */
+.films{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px}
+@media (max-width:760px){.films{grid-template-columns:1fr}}
+.film{display:grid; gap:12px}
+.film video{width:100%; max-width:100%; aspect-ratio:16/9; border-radius:var(--r); background:#111; object-fit:cover}
+.film h3{font-size:20px}
+.film p{color:var(--muted); font-size:14px}
+/* location */
+.loc{display:grid; grid-template-columns:minmax(0,7fr) minmax(0,4fr); gap:22px; align-items:start}
+@media (max-width:860px){.loc{grid-template-columns:1fr}}
+.loc .map{border-radius:var(--r); overflow:hidden; background:#fff; border:1px solid var(--line)}
+.loc .map img{width:100%; height:auto; display:block}
+.dist{display:grid; gap:0}
+.dist div{display:flex; justify-content:space-between; gap:12px; padding-block:12px; border-bottom:1px solid var(--line); font-size:15px}
+.dist div b{font-weight:600; white-space:nowrap}
+.dist h3{font-size:18px; margin:18px 0 4px}
+
+/* footer */
+footer{padding-top:clamp(40px,6vw,64px); position:relative; overflow:hidden}
+.cols{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:24px; font-size:13px}
+@media (max-width:760px){.cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.cols h4{font:600 14px var(--display); margin:0 0 12px}
+.cols a{display:block; text-decoration:none; color:var(--muted); padding-block:4px}
+.cols a:hover{color:var(--ink)}
+.legal{font-size:12px; color:var(--muted); margin-top:32px; max-width:90ch}
+.bigmark{display:block; width:100%; height:auto; color:#EFEFF1; margin-top:24px; margin-bottom:-2%}
+</style>
+
+</head>
+<body>
+<div class="sheet" id="top">
+  <header class="nav in">
+    <a class="logo" href="#top" aria-label="Binaar home"><svg width="120" height="20" viewBox="-14 -2 426 70" aria-hidden="true"><path d="M1.4000000000000001 66.0 16.7 0.0H47.400000000000006Q56.6 0.0 61.85000000000001 4.099999999999998Q67.10000000000001 8.199999999999996 67.10000000000001 15.399999999999999Q67.10000000000001 20.4 65.0 24.15Q62.900000000000006 27.9 59.400000000000006 30.2Q55.900000000000006 32.5 51.5 33.3V33.4Q56.900000000000006 33.9 60.300000000000004 37.4Q63.7 40.9 63.7 46.099999999999994Q63.7 52.8 60.45 57.2Q57.2 61.6 51.45 63.8Q45.7 66.0 38.0 66.0ZM20.8 53.9H35.1Q40.400000000000006 53.9 43.35000000000001 51.8Q46.300000000000004 49.7 46.300000000000004 45.599999999999994Q46.300000000000004 43.599999999999994 45.400000000000006 42.199999999999996Q44.5 40.8 42.7 40.099999999999994Q40.900000000000006 39.4 38.2 39.4H24.200000000000003ZM27.0 27.099999999999994H39.2Q42.5 27.099999999999994 44.85 25.999999999999996Q47.2 24.9 48.400000000000006 22.999999999999996Q49.6 21.099999999999994 49.6 18.599999999999994Q49.6 15.399999999999999 47.45 13.999999999999996Q45.300000000000004 12.599999999999994 41.800000000000004 12.599999999999994H30.400000000000002Z" fill="currentColor" /><path d="M109.19999999999999 0.0 93.9 66.0H76.7L92.0 0.0Z" fill="currentColor" /><path d="M116.30000000000001 66.0 131.6 0.0H150.0L161.9 36.3L165.0 47.099999999999994H165.10000000000002L167.8 33.3L175.60000000000002 0.0H190.7L175.4 66.0H157.3L145.0 30.299999999999997L141.9 19.5H141.70000000000002L139.20000000000002 32.699999999999996L131.5 66.0Z" fill="currentColor" /><path d="M187.90 66.00 L230.30 0.00 L233.10 0.00 L254.30 66.00 L237.10 66.00 L227.37 35.70 L207.90 66.00Z" fill="currentColor" /><path d="M259.00 66.00 L301.40 0.00 L304.20 0.00 L325.40 66.00 L308.20 66.00 L298.47 35.70 L279.00 66.00Z" fill="currentColor" /><path d="M339.0 66.0 354.3 0.0H382.6Q392.8 0.0 398.75 4.949999999999999Q404.70000000000005 9.899999999999999 404.70000000000005 18.799999999999997Q404.70000000000005 26.0 401.35 31.0Q398.0 36.0 392.3 38.75Q386.6 41.5 379.40000000000003 41.8L375.6 42.7H359.8L362.6 30.5H375.70000000000005Q379.6 30.5 382.25 29.2Q384.90000000000003 27.9 386.30000000000007 25.549999999999997Q387.70000000000005 23.199999999999996 387.70000000000005 20.4Q387.70000000000005 16.5 385.1 14.75Q382.5 13.0 378.40000000000003 13.0H368.20000000000005L355.90000000000003 66.0ZM381.70000000000005 66.0 370.90000000000003 37.4 386.5 35.0 399.1 66.0Z" fill="currentColor" /></svg></a>
+    <nav class="pillnav" aria-label="Main">
+      <a class="on" href="#top">Home</a><a href="#units">Units</a><a href="#plans">Floor plans</a><a href="#films">Films</a><a href="#location">Location</a><a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-r"><span class="ar" lang="ar" dir="rtl">بنار</span><a class="btn btn-ink" href="#contact">Book a visit</a></div>
+  </header>
+
+  <section class="hero" aria-label="Binaar">
+    <img class="poster bw" src="media/hero-poster.jpg" alt="Faisal Jewel tower rising above the clouds">
+    <video class="bw" id="herovid" autoplay muted loop playsinline preload="metadata" poster="media/hero-poster.jpg" aria-hidden="true"></video>
+    <div class="giant" aria-hidden="true">Future</div>
+    <h1 class="build">Build Your</h1>
+    <p class="intro">Apartments, penthouses and commercial floors in Faisal Jewel and Faisal Heights, with every price and payment plan shown before you decide.</p>
+    <div class="stats glass">
+      <div><b>27</b><span>Floors, Faisal Jewel</span></div>
+      <div><b>4</b><span>Towers, Faisal Heights</span></div>
+      <div><b>10</b><span>Unit types</span></div>
+      <div><b>2027</b><span>FJ completion*</span></div>
+    </div>
+    <a class="play glass" href="#films"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5z" fill="currentColor" stroke="none"/></svg></i><span>One Property<br>at a Time.</span></a>
+  </section>
+
+  <section class="sec in" id="find">
+    <div class="intro2">
+      <h2>Your next home should come with the full picture.</h2>
+      <p>Each listing shows the project, size, parking and published rate, so you compare like for like.</p>
+    </div>
+    <form class="finder" id="finder" aria-label="Find a unit">
+      <h3>Find the best place</h3>
+      <div class="fields">
+        <label for="f-type">Looking for<select id="f-type"><option value="">Any type</option><option>Studio</option><option>Apartment</option><option>Penthouse</option><option>Commercial</option></select></label>
+        <label for="f-project">Project<select id="f-project"><option value="">Both projects</option><option>Faisal Jewel</option><option>Faisal Heights</option></select></label>
+        <label for="f-beds">Bedrooms<select id="f-beds"><option value="">Any</option><option value="0">Studio</option><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
+        <label for="f-size">Minimum size<select id="f-size"><option value="0">Any size</option><option value="800">800+ sq ft</option><option value="1200">1,200+ sq ft</option><option value="1800">1,800+ sq ft</option><option value="2600">2,600+ sq ft</option></select></label>
+      </div>
+      <div class="frow">
+        <div class="chips" role="group" aria-label="Quick filter"><b>Filter:</b>
+          <button type="button" class="chip" data-chip="" aria-pressed="true">All</button>
+          <button type="button" class="chip" data-chip="Apartment" aria-pressed="false">Apartment</button>
+          <button type="button" class="chip" data-chip="Penthouse" aria-pressed="false">Penthouse</button>
+          <button type="button" class="chip" data-chip="Commercial" aria-pressed="false">Commercial</button>
+        </div>
+        <button class="btn btn-ink" type="submit">Search Units</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="sec in" id="units" style="padding-top:0">
+    <div class="row-head">
+      <h2>Explore our<br>Premier Units</h2>
+      <p id="count">10 listings across Faisal Jewel and Faisal Heights. Rates are as published by the developers.</p>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+
+  <section class="sec in" id="plans" style="padding-top:0">
+    <div class="row-head">
+      <h2>Faisal Jewel<br>floor plans</h2>
+      <div class="seg" role="group" aria-label="View">
+        <button type="button" id="v-3d" aria-pressed="true">3D view</button>
+        <button type="button" id="v-2d" aria-pressed="false">2D plan</button>
+      </div>
+    </div>
+    <div class="plans">
+      <div class="plan-stage"><img class="bw" id="planimg" src="images/plan-2bed-3d.webp" alt="Faisal Jewel 2 bed apartment, 3D floor plan"></div>
+      <div class="plan-side">
+        <div class="seg" role="group" aria-label="Unit type" id="ptypes">
+          <button type="button" data-k="1bed" aria-pressed="false">1 Bed</button>
+          <button type="button" data-k="2bed" aria-pressed="true">2 Bed</button>
+          <button type="button" data-k="3bed" aria-pressed="false">3 Bed</button>
+          <button type="button" data-k="loft" aria-pressed="false">Penthouse</button>
+        </div>
+        <h3 id="ptitle">2 Bed Apartment</h3>
+        <p id="pdesc" style="color:var(--muted); font-size:14px">Two bedrooms with attached baths, an open lounge and dining space, separate kitchen and a long balcony along the facade.</p>
+        <div class="kv">
+          <div><small>Project</small><b>Faisal Jewel</b></div>
+          <div><small>Floors</small><b>Residential 7–24</b></div>
+          <div><small>Size</small><b>Per inventory</b></div>
+          <div><small>Payment</small><b>Instalment plan</b></div>
+        </div>
+        <a class="btn btn-ink" href="#contact" style="justify-self:start">Ask for this layout</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec in" id="inside" style="padding-top:0">
+    <div class="row-head">
+      <h2>Inside<br>Faisal Jewel</h2>
+      <p>Renders of the lobby corridor, residences and amenities. Hover to see them in colour.</p>
+    </div>
+    <div class="gal">
+      <figure class="tile t-big"><img class="bw" src="images/fj-aerial.webp" alt="Aerial view of Faisal Jewel above the clouds" loading="lazy"><figcaption>Rooftop gardens</figcaption></figure>
+      <figure class="tile t-tall"><img class="bw" src="images/fj-night.webp" alt="Faisal Jewel at night" loading="lazy"><figcaption>Night facade</figcaption></figure>
+      <figure class="tile"><img class="bw" src="images/amenity-pool.webp" alt="Indoor swimming pool" loading="lazy"><figcaption>Indoor pool</figcaption></figure>
+      <figure class="tile"><img class="bw" src="images/fj-corridor.webp" alt="Residential corridor" loading="lazy"><figcaption>Corridor</figcaption></figure>
+      <figure class="tile"><img class="bw" src="images/interior-grand-living.webp" alt="Large living room" loading="lazy"><figcaption>Living room</figcaption></figure>
+      <figure class="tile"><img class="bw" src="images/interior-living-dining.webp" alt="Living and dining area" loading="lazy"><figcaption>Living &amp; dining</figcaption></figure>
+      <figure class="tile"><img class="bw" src="images/interior-studio-kitchen.webp" alt="Lounge with open kitchen" loading="lazy"><figcaption>Open kitchen</figcaption></figure>
+      <figure class="tile"><img class="bw" src="images/interior-studio.webp" alt="Studio apartment" loading="lazy"><figcaption>Studio</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="sec in" id="films" style="padding-top:0">
+    <div class="row-head">
+      <h2>Watch the<br>project films</h2>
+      <p>Tap to play with sound.</p>
+    </div>
+    <div class="films">
+      <div class="film"><video class="bw" controls preload="none" poster="media/interiors-poster.jpg" src="media/interiors.mp4"></video><h3>Interiors walkthrough</h3><p>Lobby, atrium, pool, gym, corridors and the residences. 55 seconds.</p></div>
+      <div class="film"><video class="bw" controls preload="none" poster="media/proposals-poster.jpg" src="media/proposals.mp4"></video><h3>Apartment proposals</h3><p>Units with society and Margalla views, shown floor by floor. 42 seconds.</p></div>
+    </div>
+  </section>
+
+  <section class="sec in" id="offer" style="padding-top:0">
+    <div class="row-head">
+      <h2>See what we offer<br>and how it works</h2>
+      <p>Figures from the developers' own websites, set side by side.</p>
+    </div>
+    <div class="cards3">
+      <div class="dc">
+        <small>Faisal Heights · unit sizes</small><b>495–3,982 sq ft</b>
+        <div class="bars" aria-label="Largest size per unit type in square feet"><i style="height:13.5%"></i><i style="height:32.4%"></i><i style="height:47.8%"></i><i style="height:53.9%"></i><i class="hi" style="height:100%"></i></div>
+        <div class="axis"><span>Studio</span><span>1B</span><span>2B</span><span>3B</span><span>Loft</span></div>
+      </div>
+      <div class="dc">
+        <small>Faisal Heights · rate per sq ft</small><b>PKR 8,500</b>
+        <div class="bars" aria-label="2 bed 8,500 and 3 bed 8,600 per square foot"><i style="height:98.8%"></i><i class="hi" style="height:100%"></i></div>
+        <div class="axis"><span>2 Bed · 8,500</span><span>3 Bed · 8,600</span></div>
+      </div>
+      <div class="dc">
+        <small>Faisal Jewel · 27 floors</small><b>18 residential</b>
+        <div class="bars" aria-label="18 residential, 6 commercial, 3 basement floors"><i class="hi" style="height:100%"></i><i style="height:33.3%"></i><i style="height:16.7%"></i></div>
+        <div class="axis"><span>Residential 18</span><span>Commercial 6</span><span>Basement 3</span></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="sec in" id="location" style="padding-top:0">
+    <div class="row-head">
+      <h2>Where the<br>projects sit</h2>
+      <p>Both projects are on the Islamabad–Rawalpindi motorway belt, minutes from the airport.</p>
+    </div>
+    <div class="loc">
+      <div class="map"><img class="bw" src="images/location-map.webp" alt="Map showing Faisal Hills with Faisal Jewel, Faisal Town, the airport, Margalla Hills and GT Road"></div>
+      <div class="dist">
+        <h3>Faisal Jewel · Faisal Hills</h3>
+        <div><span>Margalla Avenue</span><b>On the junction</b></div>
+        <div><span>GT Road (N5)</span><b>On the junction</b></div>
+        <div><span>M1 Motorway</span><b>On the junction</b></div>
+        <h3>Faisal Heights · Faisal Town I</h3>
+        <div><span>Faisal Town I main gate</span><b>2 km</b></div>
+        <div><span>Srinagar Highway</span><b>1.8 km</b></div>
+        <div><span>Tarnol motorway link</span><b>2.5 km</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec in" id="advisor" style="padding-top:0">
+    <div class="row-head">
+      <h2>Expert advisor</h2>
+      <div class="arrows" aria-hidden="true"><a href="#offer">‹</a><a href="#contact">›</a></div>
+    </div>
+    <div class="adv">
+      <article class="person">
+        <div class="portrait" aria-hidden="true">F</div>
+        <div><h3>Hafiz Fayaz Ahmed</h3><p>Founder, Binaar · Investment advisor</p></div>
+      </article>
+      <div class="step"><b>STEP 1</b><h3>Share your goal</h3><p>Budget, unit type and whether you plan to live in or rent out.</p></div>
+      <div class="step"><b>STEP 2</b><h3>Get a full-cost shortlist</h3><p>Rate, size, payment plan and charges for each option.</p></div>
+      <div class="step"><b>STEP 3</b><h3>Visit and book</h3><p>See the site and model apartment, then book with the developer.</p></div>
+    </div>
+  </section>
+
+  <section class="cta" aria-label="Get started">
+    <div class="box">
+      <h2>Ready to Make Your Dream Property a Reality?</h2>
+      <p>Explore a shortlist of units that match your budget and goals.</p>
+      <a class="btn btn-ink" href="#contact">Get Started</a>
+    </div>
+    <canvas id="skyline" aria-label="3D skyline of Faisal Jewel and the four Faisal Heights towers"></canvas>
+  </section>
+
+  <section class="sec in" id="contact">
+    <div class="contact">
+      <div>
+        <h2 style="font-size:clamp(28px,3.4vw,42px); line-height:1.12">Book a site visit</h2>
+        <p style="color:var(--muted); margin-top:12px; max-width:40ch">Send your details and we will reply on WhatsApp with available units and a visit time.</p>
+        <div style="margin-top:18px">
+          <div class="li"><div><small>WhatsApp / Call</small><b id="ph">0302 7629852</b></div><button class="copy" type="button" data-copy="ph">Copy</button></div>
+          <div class="li"><div><small>Email</small><b id="em">binaarpk@gmail.com</b></div><button class="copy" type="button" data-copy="em">Copy</button></div>
+          <div class="li"><div><small>Instagram</small><b>@binaar.official</b></div><a class="copy" href="https://instagram.com/binaar.official" target="_blank" rel="noopener">Open</a></div>
+        </div>
+      </div>
+      <form id="lead" novalidate>
+        <div class="two">
+          <label for="name">Full name<input id="name" autocomplete="name" required></label>
+          <label for="phone">Phone<input id="phone" inputmode="tel" autocomplete="tel" required></label>
+        </div>
+        <div class="two">
+          <label for="l-project">Project<select id="l-project"><option>Faisal Jewel</option><option>Faisal Heights</option><option>Both / not sure</option></select></label>
+          <label for="l-unit">Unit type<select id="l-unit"><option>Studio</option><option>1 Bed</option><option selected>2 Bed</option><option>3 Bed</option><option>4 Bed / Penthouse</option><option>Commercial</option></select></label>
+        </div>
+        <label for="msg">Budget or question<textarea id="msg" placeholder="e.g. 2 bed with Margalla view, budget around 1.5 crore"></textarea></label>
+        <button class="btn btn-ink" type="submit" style="justify-self:start">Send on WhatsApp</button>
+        <p class="ok" id="ok" hidden></p>
+      </form>
+    </div>
+  </section>
+
+  <footer class="in">
+    <div class="cols">
+      <div><h4>Quick Links</h4><a href="#top">Home</a><a href="#units">Units</a><a href="#offer">Projects</a><a href="#contact">Contact</a></div>
+      <div><h4>Projects</h4><a href="https://faisaljewel.com.pk/" target="_blank" rel="noopener">Faisal Jewel</a><a href="https://faisalheights.com/" target="_blank" rel="noopener">Faisal Heights</a><a href="https://faisaljewel.com.pk/wp-content/uploads/2026/06/FJ-new-Brochure.pdf" target="_blank" rel="noopener">FJ brochure</a><a href="https://faisalheights.com/wp-content/uploads/2025/08/Faisal-Heights-Catalogue.pdf" target="_blank" rel="noopener">FH catalogue</a></div>
+      <div><h4>Payment plans</h4><a href="https://online.fliphtml5.com/lutjp/hmsj/" target="_blank" rel="noopener">FJ apartments</a><a href="https://online.fliphtml5.com/lutjp/afbz/" target="_blank" rel="noopener">FJ commercial</a><a href="https://faisalheights.com/live-update/" target="_blank" rel="noopener">FH construction updates</a></div>
+      <div><h4>Follow</h4><a href="https://instagram.com/binaar.official" target="_blank" rel="noopener">Instagram</a><span style="color:var(--muted)">Islamabad, Pakistan</span></div>
+    </div>
+    <p class="legal">* As published by the developers on faisaljewel.com.pk and faisalheights.com. Prices, sizes, plans and dates can change; confirm with the developer before booking. Binaar is an independent real estate advisory and is not the developer of these projects. Project images belong to their developers. © 2026 Binaar.</p>
+    <svg class="bigmark" viewBox="-14 -2 426 70" aria-hidden="true"><path d="M1.4000000000000001 66.0 16.7 0.0H47.400000000000006Q56.6 0.0 61.85000000000001 4.099999999999998Q67.10000000000001 8.199999999999996 67.10000000000001 15.399999999999999Q67.10000000000001 20.4 65.0 24.15Q62.900000000000006 27.9 59.400000000000006 30.2Q55.900000000000006 32.5 51.5 33.3V33.4Q56.900000000000006 33.9 60.300000000000004 37.4Q63.7 40.9 63.7 46.099999999999994Q63.7 52.8 60.45 57.2Q57.2 61.6 51.45 63.8Q45.7 66.0 38.0 66.0ZM20.8 53.9H35.1Q40.400000000000006 53.9 43.35000000000001 51.8Q46.300000000000004 49.7 46.300000000000004 45.599999999999994Q46.300000000000004 43.599999999999994 45.400000000000006 42.199999999999996Q44.5 40.8 42.7 40.099999999999994Q40.900000000000006 39.4 38.2 39.4H24.200000000000003ZM27.0 27.099999999999994H39.2Q42.5 27.099999999999994 44.85 25.999999999999996Q47.2 24.9 48.400000000000006 22.999999999999996Q49.6 21.099999999999994 49.6 18.599999999999994Q49.6 15.399999999999999 47.45 13.999999999999996Q45.300000000000004 12.599999999999994 41.800000000000004 12.599999999999994H30.400000000000002Z" fill="currentColor" /><path d="M109.19999999999999 0.0 93.9 66.0H76.7L92.0 0.0Z" fill="currentColor" /><path d="M116.30000000000001 66.0 131.6 0.0H150.0L161.9 36.3L165.0 47.099999999999994H165.10000000000002L167.8 33.3L175.60000000000002 0.0H190.7L175.4 66.0H157.3L145.0 30.299999999999997L141.9 19.5H141.70000000000002L139.20000000000002 32.699999999999996L131.5 66.0Z" fill="currentColor" /><path d="M187.90 66.00 L230.30 0.00 L233.10 0.00 L254.30 66.00 L237.10 66.00 L227.37 35.70 L207.90 66.00Z" fill="currentColor" /><path d="M259.00 66.00 L301.40 0.00 L304.20 0.00 L325.40 66.00 L308.20 66.00 L298.47 35.70 L279.00 66.00Z" fill="currentColor" /><path d="M339.0 66.0 354.3 0.0H382.6Q392.8 0.0 398.75 4.949999999999999Q404.70000000000005 9.899999999999999 404.70000000000005 18.799999999999997Q404.70000000000005 26.0 401.35 31.0Q398.0 36.0 392.3 38.75Q386.6 41.5 379.40000000000003 41.8L375.6 42.7H359.8L362.6 30.5H375.70000000000005Q379.6 30.5 382.25 29.2Q384.90000000000003 27.9 386.30000000000007 25.549999999999997Q387.70000000000005 23.199999999999996 387.70000000000005 20.4Q387.70000000000005 16.5 385.1 14.75Q382.5 13.0 378.40000000000003 13.0H368.20000000000005L355.90000000000003 66.0ZM381.70000000000005 66.0 370.90000000000003 37.4 386.5 35.0 399.1 66.0Z" fill="currentColor" /></svg>
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ---------- unit data (from the developers' websites) ---------- */
+var FJ='https://faisaljewel.com.pk/wp-content/uploads/', FH='https://faisalheights.com/wp-content/uploads/';
+var UNITS=[
+  {p:'Faisal Jewel', name:'Penthouse A · B · C', type:'Penthouse', beds:3, min:null, park:null, rate:null, img:'images/plan-loft-3d.webp', plan:1, floors:27, wide:1},
+  {p:'Faisal Jewel', name:'1 Bed Apartment', type:'Apartment', beds:1, min:null, park:null, rate:null, img:'images/plan-1bed-3d.webp', plan:1, floors:27},
+  {p:'Faisal Jewel', name:'2 Bed Apartment', type:'Apartment', beds:2, min:null, park:null, rate:null, img:'images/plan-2bed-3d.webp', plan:1, floors:27},
+  {p:'Faisal Jewel', name:'3 Bed Apartment', type:'Apartment', beds:3, min:null, park:null, rate:null, img:'images/plan-3bed-3d.webp', plan:1, floors:27},
+  {p:'Faisal Jewel', name:'Shops & Offices', type:'Commercial', beds:null, min:null, park:null, rate:null, img:'images/fj-day.webp', floors:27, from:580000},
+  {p:'Faisal Heights', name:'4 Bed Loft', type:'Penthouse', beds:4, min:2654, max:3982, park:2, rate:null, img:FH+'2025/08/4-Bed-LOFTs-1.webp', floors:20, wide:1},
+  {p:'Faisal Heights', name:'Studio Apartment', type:'Studio', beds:0, min:495, max:537, park:1, rate:null, img:FH+'2025/08/STUDIO-APARTMENT-2.webp', floors:20},
+  {p:'Faisal Heights', name:'1 Bed Apartment', type:'Apartment', beds:1, min:880, max:1290, park:1, rate:null, img:FH+'2025/08/1BHK-2.webp', floors:20},
+  {p:'Faisal Heights', name:'2 Bed Apartment', type:'Apartment', beds:2, min:1210, max:1905, park:1, rate:8500, img:FH+'2025/08/2BHK-2.webp', floors:20},
+  {p:'Faisal Heights', name:'3 Bed Apartment', type:'Apartment', beds:3, min:1815, max:2145, park:2, rate:8600, img:FH+'2025/08/3BHK-3.webp', floors:20}
+];
+function fmt(n){ return n.toLocaleString('en-PK'); }
+function crore(v){ return (v/1e7).toFixed(2).replace(/0$/,'')+' Cr'; }
+/* monochrome facade drawing used when a photo can't load */
+function facade(seed,tall){
+  var s=seed, r=function(){ s=(s*9301+49297)%233280; return s/233280; };
+  var w=400,h=300,out='<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="400" height="300" fill="#ECECEE"/>';
+  out+='<rect y="240" width="400" height="60" fill="#DADADD"/>';
+  var bw=tall?110:150, bx=200-bw/2, top=tall?24:70;
+  out+='<rect x="'+bx+'" y="'+top+'" width="'+bw+'" height="'+(240-top)+'" fill="#1A1A1C"/>';
+  if(tall) out+='<path d="M'+(bx+8)+' '+top+' L200 '+(top-22)+' L'+(bx+bw-8)+' '+top+'Z" fill="#3A3A3E"/>';
+  for(var y=top+10;y<232;y+=13) for(var x=bx+8;x<bx+bw-10;x+=14){ var lit=r()<.32; out+='<rect x="'+x+'" y="'+y+'" width="9" height="7" fill="'+(lit?'#F2F2F2':'#3B3B40')+'"/>'; }
+  var sx=tall?bx-70:bx-90; out+='<rect x="'+sx+'" y="160" width="60" height="80" fill="#2C2C30"/><rect x="'+(bx+bw+12)+'" y="130" width="70" height="110" fill="#2C2C30"/>';
+  return out+'</svg>';
+}
+function card(u,i){
+  var specs=[];
+  if(u.beds!==null) specs.push(u.beds===0?'Studio':u.beds+' bed');
+  if(u.min) specs.push(fmt(u.min)+'–'+fmt(u.max)+' sq ft');
+  if(u.park) specs.push(u.park+' parking');
+  specs.push(u.floors+' floors');
+  var price, sub;
+  if(u.rate){ price='PKR '+crore(u.min*u.rate); sub='from · '+fmt(u.rate)+'/sq ft*'; }
+  else if(u.from){ price='PKR '+fmt(u.from); sub='starting from*'; }
+  else { price='On request'; sub='latest inventory'; }
+  return '<article class="unit'+(u.wide&&wideOK?' wide':'')+'"><div class="pic'+(u.plan?' plan':'')+'">'+facade(17+i*7, u.p==='Faisal Jewel')+
+    '<img src="'+u.img+'" alt="'+u.p+' '+u.name+'" loading="lazy" onerror="this.remove()"><span class="proj">'+u.p+'</span></div>'+
+    '<div class="u-body"><div class="u-top"><div><h3>'+u.name+'</h3><small>'+(u.p==='Faisal Jewel'?'Faisal Hills, Rawalpindi':'Faisal Town Phase I')+'</small></div>'+
+    '<div class="u-price">'+price+'<small>'+sub+'</small></div></div><div class="specs">'+specs.map(function(s){return '<span>'+s+'</span>';}).join('')+'</div></div></article>';
+}
+var grid=document.getElementById('grid'), count=document.getElementById('count'), wideOK=true;
+function render(){
+  var t=document.getElementById('f-type').value, pr=document.getElementById('f-project').value, b=document.getElementById('f-beds').value, sz=+document.getElementById('f-size').value;
+  var list=UNITS.filter(function(u){
+    if(t && u.type!==t) return false;
+    if(pr && u.p!==pr) return false;
+    if(b!=='' && String(u.beds)!==b) return false;
+    if(sz && !(u.max && u.max>=sz)) return false;
+    return true;
+  });
+  wideOK=list.length===UNITS.length;
+  grid.innerHTML=list.length?list.map(card).join(''):'<p class="empty">No unit matches these filters. Try a smaller size or another project.</p>';
+  count.textContent=list.length+(list.length===1?' listing':' listings')+(pr?' in '+pr:' across Faisal Jewel and Faisal Heights')+'. Rates are as published by the developers.';
+}
+document.getElementById('finder').addEventListener('submit', function(e){ e.preventDefault(); render(); document.getElementById('units').scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}); });
+['f-type','f-project','f-beds','f-size'].forEach(function(id){ document.getElementById(id).addEventListener('change', render); });
+document.querySelectorAll('.chip').forEach(function(c){ c.addEventListener('click', function(){
+  document.querySelectorAll('.chip').forEach(function(x){ x.setAttribute('aria-pressed', x===c?'true':'false'); });
+  var sel=document.getElementById('f-type'); sel.value=c.dataset.chip; render();
+}); });
+render();
+
+/* copy + lead form */
+document.querySelectorAll('button.copy[data-copy]').forEach(function(b){ b.addEventListener('click', function(){
+  var el=document.getElementById(b.dataset.copy), t=el.textContent;
+  function sel(){ var r=document.createRange(); r.selectNodeContents(el); var s=getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent='Selected'; }
+  try{ navigator.clipboard.writeText(t).then(function(){ b.textContent='Copied'; }, sel); }catch(e){ sel(); }
+}); });
+document.getElementById('lead').addEventListener('submit', function(e){
+  e.preventDefault(); var ok=document.getElementById('ok'), n=document.getElementById('name').value.trim(), ph=document.getElementById('phone').value.trim();
+  ok.hidden=false;
+  if(!n||!ph){ ok.textContent='Add your name and phone number, then send again.'; return; }
+  var text='Assalam o Alaikum Binaar, I am '+n+' ('+ph+'). Interested in '+document.getElementById('l-project').value+', '+document.getElementById('l-unit').value+'. '+document.getElementById('msg').value.trim();
+  ok.innerHTML='Your message is ready. <a href="https://wa.me/923027629852?text='+encodeURIComponent(text)+'" target="_blank" rel="noopener">Open WhatsApp to send it</a>, or call 0302 7629852.';
+});
+
+
+/* hero video: vertical cut on phones */
+(function(){ var v=document.getElementById('herovid'); if(!v) return;
+  var src=innerWidth<700?'media/hero-mobile.mp4':'media/hero.mp4';
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){ v.removeAttribute('autoplay'); return; }
+  v.src=src; var p=v.play(); if(p&&p.catch) p.catch(function(){});
+})();
+/* floor plans */
+(function(){
+  var P={
+    '1bed':{t:'1 Bed Apartment', d:'One bedroom with an en-suite bath and balcony, a lounge with open kitchen, and storage at the entrance.', f:'Residential 7–24'},
+    '2bed':{t:'2 Bed Apartment', d:'Two bedrooms with attached baths, an open lounge and dining space, separate kitchen and a long balcony along the facade.', f:'Residential 7–24'},
+    '3bed':{t:'3 Bed Apartment', d:'Three bedrooms, a family lounge, separate drawing room, kitchen and a wide terrace on the view side.', f:'Residential 7–24'},
+    'loft':{t:'Penthouse', d:'Top-floor residence with a private staircase, lift lobby, large living and dining area, study and multiple bedroom suites.', f:'Top floors'}
+  };
+  var k='2bed', v='3d', img=document.getElementById('planimg');
+  function show(){ var x=P[k]; img.src='images/plan-'+k+'-'+v+'.webp'; img.alt='Faisal Jewel '+x.t+', '+v.toUpperCase()+' floor plan';
+    document.getElementById('ptitle').textContent=x.t; document.getElementById('pdesc').textContent=x.d;
+    document.querySelectorAll('#ptypes button').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.k===k?'true':'false'); });
+    document.getElementById('v-3d').setAttribute('aria-pressed', v==='3d'?'true':'false'); document.getElementById('v-2d').setAttribute('aria-pressed', v==='2d'?'true':'false'); }
+  document.querySelectorAll('#ptypes button').forEach(function(b){ b.addEventListener('click', function(){ k=b.dataset.k; show(); }); });
+  document.getElementById('v-3d').addEventListener('click', function(){ v='3d'; show(); });
+  document.getElementById('v-2d').addEventListener('click', function(){ v='2d'; show(); });
+})();
+
+/* ---------- 3D: monochrome models ---------- */
+(function(){
+  if(!window.THREE){ return; }
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function facadeTex(cols,rows,seed,lit){
+    var c=document.createElement('canvas'); c.width=cols*16; c.height=rows*16; var x=c.getContext('2d');
+    x.fillStyle='#e9e9eb'; x.fillRect(0,0,c.width,c.height);
+    var s=seed; function r(){ s=(s*9301+49297)%233280; return s/233280; }
+    for(var j=0;j<rows;j++){ x.fillStyle='#cfcfd3'; x.fillRect(0,j*16,c.width,2);
+      for(var k=0;k<cols;k++){ x.fillStyle=r()<lit?'#5a5a60':'#1c1c1f'; x.fillRect(k*16+3,j*16+4,10,10); } }
+    var t=new THREE.CanvasTexture(c); t.anisotropy=4; return t;
+  }
+  function M(cols,rows,seed){ return new THREE.MeshStandardMaterial({map:facadeTex(cols,rows,seed,.18), roughness:.6, metalness:.1}); }
+  var white=new THREE.MeshStandardMaterial({color:0xf4f4f5, roughness:.8});
+  var dark=new THREE.MeshStandardMaterial({color:0x1a1a1c, roughness:.5, metalness:.3});
+  var glass=new THREE.MeshStandardMaterial({color:0xbfc0c4, roughness:.15, metalness:.7});
+  function box(w,h,d,m){ return new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m); }
+  function lights(s){ s.add(new THREE.HemisphereLight(0xffffff,0x8a8a8e,.85)); var d=new THREE.DirectionalLight(0xffffff,.75); d.position.set(-30,60,40); s.add(d); var b=new THREE.DirectionalLight(0xffffff,.25); b.position.set(40,10,-30); s.add(b); }
+  function jewel(){
+    var g=new THREE.Group();
+    var sh=new THREE.Shape(); [[-8,-5],[6,-6],[9,-1],[7,5],[-6,6],[-9,1]].forEach(function(p,i){ i?sh.lineTo(p[0],p[1]):sh.moveTo(p[0],p[1]); });
+    var pod=new THREE.Mesh(new THREE.ExtrudeGeometry(sh,{depth:6,bevelEnabled:false}), M(24,6,7)); pod.rotation.x=-Math.PI/2; g.add(pod);
+    var hotel=box(6,13,6,M(6,13,3)); hotel.position.set(-3.6,12.5,.4); g.add(hotel);
+    var ht=box(6.4,.6,6.4,dark); ht.position.set(-3.6,19.3,.4); g.add(ht);
+    var tw=box(6.4,21,6.4,M(7,21,11)); tw.position.set(3.2,16.5,-.6); g.add(tw);
+    var cr=new THREE.Mesh(new THREE.ConeGeometry(4.6,7,4),glass); cr.rotation.y=Math.PI/4; cr.position.set(3.2,30.5,-.6); g.add(cr);
+    return g;
+  }
+  function heights(){
+    var g=new THREE.Group(), hs=[18,20,20,18];
+    for(var i=0;i<4;i++){ var a=(i-1.5)*.22, t=box(4.6,hs[i],4.2,M(5,hs[i],21+i*5)); t.position.set((i-1.5)*6.2,hs[i]/2,-Math.cos(a)*2+2); t.rotation.y=-a; g.add(t);
+      var c=box(4.9,.5,4.5,dark); c.position.set(t.position.x,hs[i]+.25,t.position.z); c.rotation.y=-a; g.add(c); }
+    var b=box(27,1.2,9,white); b.position.set(0,.6,1); g.add(b); return g;
+  }
+  function trees(s,n,spread,seed){
+    var r=seed, rnd=function(){ r=(r*9301+49297)%233280; return r/233280; };
+    var m=new THREE.MeshStandardMaterial({color:0x5c5c61, roughness:1});
+    for(var i=0;i<n;i++){ var t=new THREE.Mesh(new THREE.SphereGeometry(.9+rnd()*1.2,8,6),m); var a=rnd()*Math.PI*2, d=14+rnd()*spread; t.position.set(Math.cos(a)*d,1,Math.sin(a)*d*.7); t.scale.y=1.2; s.add(t); }
+  }
+  function setup(canvas, build, opts){
+    var R=new THREE.WebGLRenderer({canvas:canvas, antialias:true, alpha:true}); R.setPixelRatio(Math.min(devicePixelRatio,2));
+    var S=new THREE.Scene(); S.fog=new THREE.Fog(opts.fog, opts.fogNear, opts.fogFar); lights(S);
+    var C=new THREE.PerspectiveCamera(opts.fov,1,.1,500);
+    var ground=new THREE.Mesh(new THREE.CircleGeometry(160,64), new THREE.MeshStandardMaterial({color:0xd6d6d9, roughness:1})); ground.rotation.x=-Math.PI/2; S.add(ground);
+    var root=build(S); S.add(root);
+    var yaw=opts.yaw, goal=opts.yaw, drag=null, idle=0;
+    canvas.addEventListener('pointerdown', function(e){ drag={x:e.clientX,y:goal}; canvas.setPointerCapture(e.pointerId); });
+    canvas.addEventListener('pointermove', function(e){ if(drag){ goal=drag.y-(e.clientX-drag.x)*.006; idle=0; } });
+    canvas.addEventListener('pointerup', function(){ drag=null; }); canvas.addEventListener('pointercancel', function(){ drag=null; });
+    function size(){ var w=canvas.clientWidth,h=canvas.clientHeight; if(!w||!h) return; R.setSize(w,h,false); C.aspect=w/h; C.updateProjectionMatrix(); }
+    window.addEventListener('resize', size); size();
+    var last=performance.now();
+    (function loop(now){ var dt=Math.min(.05,(now-last)/1000); last=now; idle+=dt;
+      if(!reduce && !drag && idle>2) goal+=dt*opts.spin;
+      yaw+=(goal-yaw)*(1-Math.pow(.02,dt));
+      var dist=opts.dist*(canvas.clientWidth<600?opts.mobile:1);
+      C.position.set(opts.tx+Math.sin(yaw)*dist, opts.cy, Math.cos(yaw)*dist); C.lookAt(opts.tx,opts.ty,0);
+      R.render(S,C); requestAnimationFrame(loop); })(last);
+  }
+  /* CTA: wide skyline with both projects */
+  setup(document.getElementById('skyline'), function(S){ var g=new THREE.Group(); var a=jewel(); a.position.x=-14; g.add(a); var b=heights(); b.position.set(15,0,2); g.add(b); trees(S,70,45,9); return g; },
+    {fog:0xcdcdd1, fogNear:60, fogFar:180, fov:28, tx:0, ty:12, cy:22, dist:96, yaw:-.25, spin:.04, mobile:1.5});
+})();
+</script>
+
+</body>
+</html>
